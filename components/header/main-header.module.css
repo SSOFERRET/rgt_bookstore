@@ -1,0 +1,16 @@
+.mainHeader {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  align-items: center;
+  padding: 30px 0;
+}
+
+.logo {
+  color: black;
+  font-size: 40px;
+  font-weight: 600;
+  font-style: normal;
+  text-decoration: none;
+  padding: 0 0 5px;
+}
