@@ -1,0 +1,71 @@
+.sell {
+  margin-top: 20px;;
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
+  align-items: center;
+}
+
+.sellControl {
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+}
+
+.sellMinus {
+  width: 50px;
+  height: 100%;
+  background-color: rgb(204, 204, 204);
+  border: none;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  cursor: pointer;
+  color: white;
+  font-size: 28px;
+}
+
+.sellPlus {
+  width: 50px;
+  height: 100%;
+
+  background-color: rgb(204, 204, 204);
+  border: none;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  cursor: pointer;
+  color: white;
+  font-size: 28px;
+}
+
+.sellInput {
+  width: 100px;
+  height: 47px;
+  border: 1px solid rgb(204, 204, 204);
+  padding: 0;
+  text-align: center;
+}
+
+.sellInput::-webkit-inner-spin-button,
+.sellInput::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
+}
+
+.modifyButton {
+  font-size: 24px;
+  width: 200px;
+  padding: 18px 0;
+  background-color: #e7ffa7;
+  color: rgb(60, 60, 60);
+  border: 1px solid #c5e078;
+  border-radius: 3px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
