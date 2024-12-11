@@ -168,29 +168,3 @@ export const deleteBookWithId = async (
     };
   }
 };
-
-export const searchBooksWithQuery = async (
-  query: string
-): Promise<{ data: unknown[]; message: string }> => {
-  if (isInvalidText(query)) {
-    return {
-      data: [],
-      message: "유효하지 않은 검색어입니다.",
-    };
-  }
-
-  try {
-    const data = searchBooks(query);
-
-    return {
-      data,
-      message: "",
-    };
-  } catch (error) {
-    console.error("책 검색 중 문제가 발생했습니다:", error);
-    return {
-      data: [],
-      message: "책 검색 중 문제가 발생했습니다.",
-    };
-  }
-}
