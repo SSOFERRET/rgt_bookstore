@@ -22,6 +22,7 @@
 
 - [ ] Detail (GET /books/:id)
   책 상세 정보를 보여주는 페이지
+  - [x] 페이지 컴포넌트
   - [ ] 책 수정 (=> Modify 페이지)
   - [ ] 책 삭제 (DELETE /books/:id)
   - [ ] 책 재고 수량 수정 (PATCH /books/:id)
