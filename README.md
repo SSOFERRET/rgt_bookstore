@@ -39,4 +39,4 @@
 
 - [ ] 에러 페이지
 
-- [ ] Not found 페이지
+- [x] Not found 페이지
