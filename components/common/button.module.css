@@ -1,0 +1,11 @@
+.primary {
+  font-size: 24px;
+  width: 200px;
+  height: 60px;
+  background-color: #e7ffa7;
+  color: rgb(60, 60, 60);
+  border: 1px solid #c5e078;
+  border-radius: 3px;
+  cursor: pointer;
+}
+

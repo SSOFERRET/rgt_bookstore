@@ -18,6 +18,10 @@ export function getBooks(page: number = 1, limit: number = 10): { data: IBook[];
   return { data, total };
 }
 
+export function getBook(id: number): IBook {
+  return db.prepare('SELECT * FROM books WHERE id = ?').get(id) as IBook;
+}
+
 function executeWithRetry<T>(task: () => T): T {
   try {
     return task();
