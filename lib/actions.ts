@@ -1,7 +1,7 @@
 'use server';
 
 import { redirect } from "next/navigation";
-import { patchAddStock, patchStockAndTotalAsSales, saveBook } from "./books";
+import { deleteBook, patchAddStock, patchStockAndTotalAsSales, saveBook } from "./books";
 import { revalidatePath } from "next/cache";
 import { formatDate } from "@/util/format-date";
 import { ISaveBook } from "@/types/book.type";
@@ -146,6 +146,25 @@ export const patchBookAsAddStock = async (
     console.error('Error updating book:', error);
     return {
       message: '책 정보 업데이트 중 문제가 발생했습니다.',
+    };
+  }
+};
+
+export const deleteBookWithId = async (
+  state: { message: string } | undefined,
+  id: number,
+) => {
+
+  try {
+    deleteBook(id);
+    revalidatePath(`/`);
+    return {
+      message: `책이 성공적으로 삭제되었습니다..`
+    };
+  } catch (error) {
+    console.error('Error updating book:', error);
+    return {
+      message: '책 삭제 중 문제가 발생했습니다.',
     };
   }
 };

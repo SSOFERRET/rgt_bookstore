@@ -4,10 +4,13 @@ import { useState } from "react";
 import styles from "./header-buttons.module.css";
 import Button from "@/components/common/button";
 import Link from "next/link";
-import { patchBookAsAddStock, patchBookAsSale } from "@/lib/actions";
+import { deleteBookWithId, patchBookAsAddStock, patchBookAsSale } from "@/lib/actions";
+import { redirect } from "next/dist/server/api-utils";
+import { useRouter } from "next/navigation";
 
 export default function HeaderButtons({ id, currentStock, totalSales }: { id: number; currentStock: number, totalSales: number }) {
   const [input, setInput] = useState<number>(1);
+  const router = useRouter();
 
   const handleMinus = () => {
     setInput((prev) => (prev - 1 > 0 ? prev - 1 : 1));
@@ -50,12 +53,27 @@ export default function HeaderButtons({ id, currentStock, totalSales }: { id: nu
         alert(result.message);
       }
     } catch (error) {
-      console.error("판매 요청 에러:", error);
-      alert("판매 요청 중 문제가 발생했습니다.");
+      console.error("재고 업데이트 요청 에러:", error);
+      alert("재고 업데이트 요청 중 문제가 발생했습니다.");
     } finally {
       setInput(1);
     }
   };
+
+  const handleDelete = async () => {
+    try {
+      const result = await deleteBookWithId(undefined, id);
+
+      if (result?.message) {
+        alert(result.message);
+      }
+    } catch (error) {
+      console.error("삭체 요청 에러:", error);
+      alert("삭제 요청 중 문제가 발생했습니다.");
+    } finally {
+      router.push('/')
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -80,7 +98,7 @@ export default function HeaderButtons({ id, currentStock, totalSales }: { id: nu
       </section>
       <section className={styles.buttons}>
         <Link className={styles.modifyButton} href={`/book/${id}/modify`}>책 정보 수정</Link>
-        <Button onClick={() => alert("책 정보 삭제 기능을 추가해야 합니다.")} variant="danger">책 정보 삭제</Button>
+        <Button onClick={handleDelete} variant="danger">책 정보 삭제</Button>
       </section>
     </div>
   );

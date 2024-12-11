@@ -109,6 +109,16 @@ export function patchAddStock(id: number, updates: { currentStock: number; }) {
   db.prepare(query).run(params);
 }
 
+export function deleteBook(id: number): void {
+  const query = "DELETE FROM books WHERE id = @id";
+  const params = { id };
+
+  const result = db.prepare(query).run(params);
+  if (result.changes === 0) {
+    throw new Error(`${id} 책 없음`);
+  }
+}
+
 function executeWithRetry<T>(task: () => T): T {
   try {
     return task();
@@ -118,4 +128,3 @@ function executeWithRetry<T>(task: () => T): T {
     return task();
   }
 }
-
