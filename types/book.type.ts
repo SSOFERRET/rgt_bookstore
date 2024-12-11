@@ -12,3 +12,5 @@ export interface IBook {
   price: number;
   page?: number;
 }
+
+export const PAGE_LIMIT = 10;
