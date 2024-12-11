@@ -1,3 +1,5 @@
+@import 'reset.css';
+
 html,
 body {
   max-width: 1280px;
@@ -7,4 +9,9 @@ body {
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 600;
 }

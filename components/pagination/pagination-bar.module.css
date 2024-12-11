@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 20px;
+  color: rgb(160, 160, 160);
+  padding: 20px 40px;
+}
+
+.selectedNum {
+  color: rgb(100, 100, 100);
+  font-size: 24px;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 50%;
+  background-color: rgb(240, 240, 240);
+}
+
+.pageNum {
+  cursor: pointer;
+  padding: 10px 18px;
+}
