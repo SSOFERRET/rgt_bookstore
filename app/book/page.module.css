@@ -1,0 +1,15 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.postButton {
+  font-size: 24px;
+  text-decoration: none;
+  padding: 20px 40px;
+  background-color: rgb(255, 219, 56);
+  color: rgb(60, 60, 60);
+  border-radius: 40px;
+}
