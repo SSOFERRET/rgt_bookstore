@@ -119,6 +119,31 @@ export function deleteBook(id: number): void {
   }
 }
 
+export function searchBooks(page: number = 1, query: string, limit: number = 10): { data: IBook[]; total: number } {
+  const offset = (page - 1) * limit;
+  const searchQuery = `%${query}%`;
+
+  const data = executeWithRetry(() =>
+    db.prepare(`
+      SELECT * FROM books
+      WHERE title LIKE ? OR author LIKE ?
+      LIMIT ? OFFSET ?
+    `).all(searchQuery, searchQuery, limit, offset) as IBook[]
+  );
+
+  const total = executeWithRetry(() => {
+    const result = db.prepare(`
+      SELECT COUNT(*) AS count 
+      FROM books 
+      WHERE title LIKE ? OR author LIKE ?
+    `).get(searchQuery, searchQuery) as { count: number };
+    return result.count;
+  });
+
+  return { data, total };
+}
+
+
 function executeWithRetry<T>(task: () => T): T {
   try {
     return task();

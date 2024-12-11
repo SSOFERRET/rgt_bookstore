@@ -4,9 +4,9 @@ import type { NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
   const { searchParams, pathname } = request.nextUrl;
 
-  if (pathname === "/" && !searchParams.has("page")) {
+  if (pathname === "/") {
     searchParams.set("page", "1");
-    return NextResponse.redirect(new URL(`/?${searchParams.toString()}`, request.url));
+    return NextResponse.redirect(new URL(`/book?${searchParams.toString()}`, request.url));
   }
 
   return NextResponse.next();
