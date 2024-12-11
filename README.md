@@ -27,11 +27,11 @@
   - [ ] 책 삭제 (DELETE /books/:id)
   - [ ] 책 재고 수량 수정 (PATCH /books/:id)
 
-- [ ] Create (POST /books)
+- [x] Create (POST /books)
   책 정보 추가 페이지
-  - [ ] 제출 폼 컴포넌트
-    - [ ] 이미지 제출 컴포넌트
-  - [ ] 예외 상황
+  - [x] 제출 폼 컴포넌트
+    - [x] 이미지 제출 컴포넌트
+  - [x] 예외 상황
 
 - [ ] Modify (PUT /books/:id)
   책 정보 수정 페이지
