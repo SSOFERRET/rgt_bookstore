@@ -1,0 +1,52 @@
+.bookItem {
+  display: flex;
+  padding: 2rem;
+  gap: 4rem;
+  border-bottom: 1px solid rgb(230, 230, 230);
+}
+
+.image {
+  position: relative;
+  height: 14rem;
+  width: 9rem;
+  cursor: pointer;
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: rgb(56, 56, 56);
+}
+
+.container h1 {
+  margin-bottom: 2rem;
+}
+
+.info {
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+}
+
+.infoSection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 300px;
+}
+
+.keyName {
+  font-weight: 500;
+  width: 80px;
+}
+
+.value {
+  font-size: 18px;
+}
+
+
