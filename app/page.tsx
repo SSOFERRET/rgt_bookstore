@@ -1,18 +1,24 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import BooksGrid from "@/components/books/books-grid";
+import { getBooks } from "@/lib/books";
+
+function Books() {
+  const books = getBooks();
+  console.log(books);
+
+  return <BooksGrid books={books} />
+}
 
 export default function Home() {
   return (
     <div className={styles.page}>
-      <header>
-        검색바
-        책 추가 버튼
-      </header>
       <main>
-        책 그리드
+        <Books />
       </main>
       <footer>
         페이지네이션
+        책 추가 버튼
       </footer>
     </div>
   );
