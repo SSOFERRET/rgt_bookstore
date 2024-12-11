@@ -1,5 +1,5 @@
 import styles from "./page.module.css";
-import BooksGrid from "@/components/books/books-grid";
+import BooksList from "@/components/books/books-list";
 import PaginationBar from "@/components/pagination/pagination-bar";
 import { getBooks } from "@/lib/books";
 
@@ -19,7 +19,7 @@ export default function Home({ searchParams }: { searchParams: { page?: string }
         <PaginationBar total={total} />
       </header>
       <main>
-        <BooksGrid books={data} />
+        <BooksList books={data} />
       </main>
       <footer>
         <PaginationBar total={total} />

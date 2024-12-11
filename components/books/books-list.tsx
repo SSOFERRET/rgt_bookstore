@@ -1,12 +1,12 @@
 import { IBook } from "@/types/book.type";
-import styles from "./books-grid.module.css";
+import styles from "./books-list.module.css";
 import BookItem from "./book-item";
 
 interface IProps {
   books: IBook[];
 }
 
-export default function BooksGrid({books}: IProps) {
+export default function BooksList({books}: IProps) {
   return (
     <ul className={styles.books}>
       {books.map(book => <li key={book.id}>
