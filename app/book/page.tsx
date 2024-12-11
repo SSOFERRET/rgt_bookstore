@@ -6,12 +6,12 @@ import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
-export default function Home({ searchParams }: { searchParams: { page?: string } }) {
-  if (!searchParams.page) {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set('page', '1'); 
-  }
-  const page = parseInt(searchParams?.page || "1");
+
+
+export default async function Home({ searchParams }: { searchParams: Promise<{ page?: string }> }) {
+  const resolvedSearchParams = await searchParams;
+  const page = parseInt(resolvedSearchParams.page || "1");
+
   const { data, total } = getBooks(page);
 
   return (

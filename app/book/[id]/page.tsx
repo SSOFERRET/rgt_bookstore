@@ -6,8 +6,9 @@ import HeaderInfo from "@/components/book/header-info";
 import HeaderButtons from "@/components/book/header-buttons";
 import { notFound } from "next/navigation";
 
-export default function Detail({ params }: { params: { id: string } }) {
-  const book = getBook(parseInt(params.id));
+export default async function Detail({ params }: {params: Promise<{id: string}>}) {
+  const resolvedParams = await params;
+  const book = getBook(parseInt(resolvedParams.id));
 
   if (!book) {
     notFound();
