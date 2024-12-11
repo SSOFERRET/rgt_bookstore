@@ -1,25 +1,30 @@
-import Image from "next/image";
 import styles from "./page.module.css";
 import BooksGrid from "@/components/books/books-grid";
+import PaginationBar from "@/components/pagination/pagination-bar";
 import { getBooks } from "@/lib/books";
 
-function Books() {
-  const books = getBooks();
-  console.log(books);
+export const dynamic = "force-dynamic";
 
-  return <BooksGrid books={books} />
-}
+export default function Home({ searchParams }: { searchParams: { page?: string } }) {
+  if (!searchParams.page) {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('page', '1'); 
+  }
+  const page = parseInt(searchParams?.page || "1");
+  const { data, total } = getBooks(page);
 
-export default function Home() {
   return (
     <div className={styles.page}>
+      <header>
+        <PaginationBar total={total} />
+      </header>
       <main>
-        <Books />
+        <BooksGrid books={data} />
       </main>
       <footer>
-        페이지네이션
-        책 추가 버튼
+        <PaginationBar total={total} />
       </footer>
+      <button>책 추가</button>
     </div>
   );
 }
