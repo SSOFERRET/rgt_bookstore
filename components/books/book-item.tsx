@@ -3,6 +3,7 @@ import Image from 'next/image';
 
 import styles from './book-item.module.css';
 import { IBook } from "@/types/book.type";
+import { formatNumber } from "@/util/format-number";
 
 export default function BookItem({
   id,
@@ -45,15 +46,15 @@ export default function BookItem({
           <div className={styles.info}>
             <section className={styles.infoSection}>
               <p className={styles.keyName}>가격</p>
-              <p className={styles.value}>{price} 원</p>
+              <p className={styles.value}>{formatNumber(price)} 원</p>
             </section>
             <section className={styles.infoSection}>
               <p className={styles.keyName}>판매</p>
-              <p className={styles.value}>{totalSales} 권</p>
+              <p className={styles.value}>{formatNumber(totalSales)} 권</p>
             </section>
             <section className={styles.infoSection}>
               <p className={styles.keyName}>재고수</p>
-              <p className={styles.value}>{currentStock} 권</p>
+              <p className={styles.value}>{formatNumber(currentStock)} 권</p>
             </section>
           </div>
         </Link>
