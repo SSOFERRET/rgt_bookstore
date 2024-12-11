@@ -21,7 +21,7 @@ export default function Detail({ params }: { params: { id: string } }) {
         </section>
         <section className={styles.container}>
           <HeaderInfo book={book} />
-          <HeaderButtons id={book.id} />
+          <HeaderButtons id={book.id} currentStock={book.currentStock} totalSales={book.totalSales}/>
         </section>
       </header>
       <main className={styles.main}>
@@ -35,7 +35,7 @@ export default function Detail({ params }: { params: { id: string } }) {
         </section>
         <section className={styles.infoSection}>
           <p className={styles.keyName}>쪽수</p>
-          <p className={styles.value}>{formatNumber(book.page)} p</p>
+          <p className={styles.value}>{book.page ? `${formatNumber(book.page)} p` : '-'}</p>
         </section>
       </main>
     </div>
