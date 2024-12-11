@@ -13,7 +13,6 @@ export default function Form() {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
-    // startTransition으로 비동기 액션 처리
     startTransition(async () => {
       const result = await submitBook(undefined, formData);
       setMessage(result?.message || '');

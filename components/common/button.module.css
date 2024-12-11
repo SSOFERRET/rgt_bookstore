@@ -20,3 +20,13 @@
   cursor: pointer;
 }
 
+.danger {
+  font-size: 24px;
+  width: 200px;
+  height: 60px;
+  background-color: #ff7b5b;
+  color: white;
+  border: 1px solid #ff5858;
+  border-radius: 3px;
+  cursor: pointer;
+}
