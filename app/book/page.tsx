@@ -26,7 +26,6 @@ export default function Home({ searchParams }: { searchParams: { page?: string }
       <footer>
         <PaginationBar total={total} />
       </footer>
-      <button>책 추가</button>
     </div>
   );
 }
