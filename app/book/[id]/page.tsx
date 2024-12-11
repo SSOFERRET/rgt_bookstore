@@ -4,9 +4,14 @@ import { getBook } from "@/lib/books";
 import { formatNumber } from "@/util/format-number";
 import HeaderInfo from "@/components/book/header-info";
 import HeaderButtons from "@/components/book/header-buttons";
+import { notFound } from "next/navigation";
 
 export default function Detail({ params }: { params: { id: string } }) {
   const book = getBook(parseInt(params.id));
+
+  if (!book) {
+    notFound();
+  }
   
   return (
     <div>
@@ -30,7 +35,7 @@ export default function Detail({ params }: { params: { id: string } }) {
         </section>
         <section className={styles.infoSection}>
           <p className={styles.keyName}>쪽수</p>
-          <p className={styles.value}>{book.page} p</p>
+          <p className={styles.value}>{formatNumber(book.page)} p</p>
         </section>
       </main>
     </div>
