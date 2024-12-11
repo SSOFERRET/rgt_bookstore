@@ -1,11 +1,11 @@
+const sql = require('better-sqlite3');
+
 import { IBook } from "./types/book.type";
 
-const sql = require('better-sqlite3');
-const db = sql('books.db');
+const db = sql(`books.db`);
 
-const dummyBooks: IBook[] = [
+const dummyBooks: Omit<IBook, 'id'>[] = [
    {
-      id: 1,
       title: '고작 다섯 명이 한 말을 어떻게 믿어요?',
       image: '/images/image_1.jpg',
       author: '송라영',
@@ -14,9 +14,7 @@ const dummyBooks: IBook[] = [
       isbn: '9791169213233',
       description: `
          고작 다섯 명이 한 말, 모두를 설득하는 강력한 무기가 되다!
-         "정성 연구에 신뢰를 더하는 실전 UX 리서치 전략”
-
-         이 책은 사용자 경험의 숨겨진 목소리를 찾고 이를 날카로운 인사이트로 전환하는 ‘정성 연구’ 실무 가이드다. 설문 조사, 사용성 테스트, 심층 인터뷰 등 다양한 정성 연구 방법론부터 설득력 있는 보고 방법까지 정성 연구의 전 과정을 체계적으로 다룬다. 또한 메타와 페이팔 등 글로벌 테크 기업의 생생한 실사례를 바탕으로, 소수의 참여자만으로도 깊이 있는 결과를 도출하는 비결과 연구 데이터를 효과적으로 전달해 이해관계자의 신뢰를 얻는 전략을 구체적으로 제시한다. UX 리서처, 디자이너, 프로덕트 매니저는 물론, 사용자 경험의 진정한 의미를 탐구하고자 하는 이들에게 실질적인 가이드를 제공할 것이다. 이 책으로 정성 연구의 진정한 힘을 경험하고 제품 개발에 차별화를 더할 새로운 가능성을 발견하길 바란다.
+         ...
       `,
       publisher: '한빛미디어',
       currentStock: 10,
@@ -25,10 +23,47 @@ const dummyBooks: IBook[] = [
    }
 ];
 
+export function initializeDatabase() {
+   try {
+      db.prepare(`
+         CREATE TABLE IF NOT EXISTS books (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT NOT NULL,
+            image TEXT NOT NULL,
+            author TEXT NOT NULL,
+            publicationDate TEXT NOT NULL,
+            page INTEGER,
+            isbn TEXT NOT NULL,
+            description TEXT NOT NULL,
+            publisher TEXT NOT NULL,
+            currentStock INTEGER NOT NULL,
+            totalSales INTEGER NOT NULL DEFAULT 0,
+            price INTEGER NOT NULL
+         )
+      `).run();
+
+      initData();
+   } catch (error) {
+      console.error('Error creating books db:', error);
+   }
+}
+
 async function initData() {
+   console.log("initData 하는 중")
    const stmt = db.prepare(`
-      INSERT INTO books VALUES (
-         @id,
+      INSERT INTO books (
+         title,
+         image,
+         author,
+         publicationDate,
+         page,
+         isbn,
+         description,
+         publisher,
+         currentStock,
+         totalSales,
+         price
+      ) VALUES (
          @title,
          @image,
          @author,
@@ -44,8 +79,7 @@ async function initData() {
    `);
 
    for (const book of dummyBooks) {
-      stmt.run(book);
+      const result = stmt.run(book);
+      console.log(`Inserted book with title: ${book.title}, ID: ${result.lastInsertRowid}`);
    }
 }
-
-initData();
