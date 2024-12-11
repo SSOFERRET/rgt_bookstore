@@ -119,7 +119,7 @@ export function deleteBook(id: number): void {
   }
 }
 
-export function searchBooks(page: number = 1, query: string, limit: number = 10): { data: IBook[]; total: number } {
+export function searchBooks(query: string, page: number = 1, limit: number = 10): { data: IBook[]; total: number } {
   const offset = (page - 1) * limit;
   const searchQuery = `%${query}%`;
 
