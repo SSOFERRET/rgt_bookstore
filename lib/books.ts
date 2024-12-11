@@ -76,6 +76,39 @@ export async function saveBook(book: ISaveBook) {
   return result.lastInsertRowid;
 }
 
+export function patchStockAndTotalAsSales(id: number, updates: { currentStock: number; totalSales: number; }) {
+  const fieldsToUpdate: string[] = [];
+  const params: Record<string, unknown> = { id };
+  params.currentStock = updates.currentStock;
+  fieldsToUpdate.push("currentStock = @currentStock");
+
+  params.totalSales = updates.totalSales;
+  fieldsToUpdate.push("totalSales = @totalSales");
+
+  const query = `
+    UPDATE books
+    SET ${fieldsToUpdate.join(", ")}
+    WHERE id = @id
+  `;
+
+  db.prepare(query).run(params);
+}
+
+export function patchAddStock(id: number, updates: { currentStock: number; }) {
+  const fieldsToUpdate: string[] = [];
+  const params: Record<string, unknown> = { id };
+  params.currentStock = updates.currentStock;
+  fieldsToUpdate.push("currentStock = @currentStock");
+
+  const query = `
+    UPDATE books
+    SET ${fieldsToUpdate.join(", ")}
+    WHERE id = @id
+  `;
+
+  db.prepare(query).run(params);
+}
+
 function executeWithRetry<T>(task: () => T): T {
   try {
     return task();

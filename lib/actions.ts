@@ -1,10 +1,10 @@
 'use server';
 
 import { redirect } from "next/navigation";
-import { saveBook } from "./books";
+import { patchAddStock, patchStockAndTotalAsSales, saveBook } from "./books";
 import { revalidatePath } from "next/cache";
 import { formatDate } from "@/util/format-date";
-import { IBook, ISaveBook } from "@/types/book.type";
+import { ISaveBook } from "@/types/book.type";
 
 function isInvalidText(text: unknown): boolean {
   return typeof text !== 'string' || text.trim() === '';
@@ -94,5 +94,58 @@ export const submitBook = async (
     if (!id)
       return redirect('/');
     return redirect(`/book/${id}`);
+  }
+};
+
+export const patchBookAsSale = async (
+  state: { message: string } | undefined,
+  bookId: number,
+  updates: { currentStock: number; totalSales: number }
+) => {
+  if (
+    (updates.currentStock !== undefined && isInvalidNumber(updates.currentStock)) ||
+    (updates.totalSales !== undefined && isInvalidNumber(updates.totalSales))
+  ) {
+    return {
+      message: '잘못된 입력입니다.',
+    };
+  }
+
+  try {
+    patchStockAndTotalAsSales(bookId, updates);
+    revalidatePath(`/book/${bookId}`);
+    return {
+      message: `책 정보가 성공적으로 업데이트되었습니다.`
+    };
+  } catch (error) {
+    console.error('Error updating book:', error);
+    return {
+      message: '책 정보 업데이트 중 문제가 발생했습니다.',
+    };
+  }
+};
+
+export const patchBookAsAddStock = async (
+  state: { message: string } | undefined,
+  bookId: number,
+  updates: { currentStock: number; }
+) => {
+  if (updates.currentStock !== undefined && isInvalidNumber(updates.currentStock)) {
+    return {
+      message: '잘못된 입력입니다.',
+    };
+  }
+
+  try {
+    patchAddStock(bookId, updates);
+    revalidatePath(`/book/${bookId}`);
+    return {
+      message: `책 재고 수량이 성공적으로 업데이트 되었습니다.`
+    };
+  } catch (error) {
+    console.error('Error updating book:', error);
+    return {
+      message: '책 정보 업데이트 중 문제가 발생했습니다.',
+    };
   }
 };
